@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard EFSRT | Gestión de Prácticas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Overlay para menú móvil -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="app-layout">
+    <!-- BARRA LATERAL -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-box">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h2>SGA · EFSRT</h2>
+          <span>Módulo Formativo</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-label">Principal</span>
+        <a href="#" class="nav-item active">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span>Panel General</span>
+        </a>
+        <a href="#bitacora" class="nav-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Bitácora de Horas</span>
+        </a>
+        <a href="#documentos" class="nav-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Expediente EFSRT</span>
+        </a>
+
+        <span class="nav-label">Seguimiento</span>
+        <a href="#empresa" class="nav-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+            <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>
+          </svg>
+          <span>Centro de Prácticas</span>
+        </a>
+        <a href="#" class="nav-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <span>Informes y Rúbricas</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="module-badge">
+          <span class="dot-live"></span>
+          <div>
+            <strong>Módulo II · 2026-II</strong>
+            <small>Diseño y Programación Web</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-wrapper">
+      <!-- ENCABEZADO -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="btn-icon mobile-toggle" id="menuToggle" aria-label="Abrir menú">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div>
+            <h1>Panel de Control EFSRT</h1>
+            <p class="subtitle">Seguimiento de experiencias formativas en situaciones reales de trabajo</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="btn btn-primary" id="btnOpenModal">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Registrar Actividad</span>
+          </button>
+          <div class="user-profile">
+            <div class="avatar">DG</div>
+            <div class="user-info">
+              <strong>Daniel Gomez</strong>
+              <span>Estudiante · II Semestre</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CUERPO DEL DASHBOARD -->
+      <main class="dashboard-content">
+        
+        <!-- TARJETAS KPI -->
+        <section class="kpi-grid">
+          <article class="card kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-title">Horas Acumuladas</span>
+              <div class="kpi-icon blue">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value">
+              <span id="horasActuales">192</span> <small>/ 256 hrs</small>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" id="barraProgreso" style="width: 75%;"></div>
+              </div>
+              <span class="progress-text" id="textoProgreso">75% completado</span>
+            </div>
+          </article>
+
+          <article class="card kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-title">Estado de Práctica</span>
+              <div class="kpi-icon green">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value">En Curso</div>
+            <p class="kpi-meta"><span class="badge badge-success">Aprobado por Coordinación</span></p>
+          </article>
+
+          <article class="card kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-title">Centro de Prácticas</span>
+              <div class="kpi-icon purple">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value text-truncate">TechSolutions Perú S.A.C.</div>
+            <p class="kpi-meta">Área: Desarrollo Web Frontend</p>
+          </article>
+
+          <article class="card kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-title">Evaluación Parcial</span>
+              <div class="kpi-icon amber">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value">18.5 <small>/ 20</small></div>
+            <p class="kpi-meta">Supervisión de medio término</p>
+          </article>
+        </section>
+
+        <!-- GRID PRINCIPAL: BITÁCORA + EXPEDIENTE -->
+        <div class="content-grid">
+          
+          <!-- TABLA DE BITÁCORA -->
+          <section class="card table-section" id="bitacora">
+            <div class="card-header">
+              <div>
+                <h2>Bitácora de Actividades Recientes</h2>
+                <p>Registro diario de labores realizadas en el centro de prácticas</p>
+              </div>
+              <div class="filter-group">
+                <select id="filtroEstado" class="select-input">
+                  <option value="todos">Todos los estados</option>
+                  <option value="Validado">Validados</option>
+                  <option value="En revisión">En revisión</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Actividad Desarrollada</th>
+                    <th>Horas</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaActividades">
+                  <tr data-estado="Validado">
+                    <td class="td-date">23 Nov 2026</td>
+                    <td>
+                      <strong>Maquetación responsiva de módulo de reportes</strong>
+                      <span class="td-sub">Implementación con CSS Grid y Flexbox</span>
+                    </td>
+                    <td><span class="hours-pill">6 hrs</span></td>
+                    <td><span class="badge badge-success">Validado</span></td>
+                  </tr>
+                  <tr data-estado="Validado">
+                    <td class="td-date">21 Nov 2026</td>
+                    <td>
+                      <strong>Integración de formularios de registro</strong>
+                      <span class="td-sub">Validación de campos en cliente con JavaScript</span>
+                    </td>
+                    <td><span class="hours-pill">8 hrs</span></td>
+                    <td><span class="badge badge-success">Validado</span></td>
+                  </tr>
+                  <tr data-estado="En revisión">
+                    <td class="td-date">24 Nov 2026</td>
+                    <td>
+                      <strong>Optimización de consultas SQL en panel administrativo</strong>
+                      <span class="td-sub">Normalización de tablas en phpMyAdmin</span>
+                    </td>
+                    <td><span class="hours-pill">6 hrs</span></td>
+                    <td><span class="badge badge-warning">En revisión</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- COLUMNA DERECHA: DOCUMENTOS Y SUPERVISIÓN -->
+          <div class="side-column">
+            
+            <!-- EXPEDIENTE DOCUMENTARIO -->
+            <section class="card" id="documentos">
+              <div class="card-header">
+                <h2>Expediente EFSRT</h2>
+                <span class="badge badge-info">3 de 4 listos</span>
+              </div>
+              <ul class="doc-list">
+                <li class="doc-item">
+                  <div class="doc-icon done">✓</div>
+                  <div class="doc-info">
+                    <strong>Carta de Presentación</strong>
+                    <span>Firmada y recepcionada</span>
+                  </div>
+                </li>
+                <li class="doc-item">
+                  <div class="doc-icon done">✓</div>
+                  <div class="doc-info">
+                    <strong>Plan de Actividades EFSRT</strong>
+                    <span>Aprobado por docente asesor</span>
+                  </div>
+                </li>
+                <li class="doc-item">
+                  <div class="doc-icon done">✓</div>
+                  <div class="doc-info">
+                    <strong>Ficha de Evaluación Empresarial</strong>
+                    <span>Cargada en sistema</span>
+                  </div>
+                </li>
+                <li class="doc-item">
+                  <div class="doc-icon pending">⧗</div>
+                  <div class="doc-info">
+                    <strong>Informe Final y Constancia</strong>
+                    <span>Disponible al completar 256 hrs</span>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <!-- CONTACTO SUPERVISIÓN -->
+            <section class="card" id="empresa">
+              <div class="card-header">
+                <h2>Supervisión Asignada</h2>
+              </div>
+              <div class="supervisor-box">
+                <div class="sup-row">
+                  <span class="sup-role">Supervisor en Empresa</span>
+                  <strong>Ing. Carlos Mendoza Ríos</strong>
+                  <small>Jefe de Desarrollo · cmendoza@techsolutions.pe</small>
+                </div>
+                <hr class="divider">
+                <div class="sup-row">
+                  <span class="sup-role">Docente Asesor IESTP</span>
+                  <strong>Mg. Elena Torres Vargas</strong>
+                  <small>Coordinación DPW · etorres@institutocajas.edu.pe</small>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL PARA REGISTRAR NUEVA ACTIVIDAD -->
+  <div class="modal-backdrop" id="modalActividad">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Registrar Horas EFSRT</h3>
+        <button class="btn-icon" id="btnCloseModal" aria-label="Cerrar">✕</button>
+      </div>
+      <form id="formActividad">
+        <div class="form-group">
+          <label for="inputFecha">Fecha de actividad</label>
+          <input type="date" id="inputFecha" required>
+        </div>
+        <div class="form-group">
+          <label for="inputTitulo">Actividad principal</label>
+          <input type="text" id="inputTitulo" placeholder="Ej. Desarrollo de interfaz de usuarios" required>
+        </div>
+        <div class="form-group">
+          <label for="inputDetalle">Descripción breve / Herramientas</label>
+          <input type="text" id="inputDetalle" placeholder="Ej. HTML5, CSS3, validación de datos" required>
+        </div>
+        <div class="form-group">
+          <label for="inputHoras">Horas realizadas</label>
+          <input type="number" id="inputHoras" min="1" max="12" value="6" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btnCancelModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Registro</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const menuToggle = document.getElementById('menuToggle');
+    const modal = document.getElementById('modalActividad');
+    const btnOpenModal = document.getElementById('btnOpenModal');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+    const btnCancelModal = document.getElementById('btnCancelModal');
+    const formActividad = document.getElementById('formActividad');
+    const filtroEstado = document.getElementById('filtroEstado');
+
+    function toggleMenu() {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    }
+    menuToggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    function openModal() { modal.classList.add('active'); }
+    function closeModal() { modal.classList.remove('active'); }
+    btnOpenModal.addEventListener('click', openModal);
+    btnCloseModal.addEventListener('click', closeModal);
+    btnCancelModal.addEventListener('click', closeModal);
+
+    let totalHoras = 192;
+    const metaHoras = 256;
+
+    formActividad.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const titulo = document.getElementById('inputTitulo').value;
+      const detalle = document.getElementById('inputDetalle').value;
+      const horas = parseInt(document.getElementById('inputHoras').value, 10);
+
+      const tbody = document.getElementById('tablaActividades');
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-estado', 'En revisión');
+      tr.innerHTML = `
+        <td class="td-date">Hoy</td>
+        <td>
+          <strong>${titulo}</strong>
+          <span class="td-sub">${detalle}</span>
+        </td>
+        <td><span class="hours-pill">${horas} hrs</span></td>
+        <td><span class="badge badge-warning">En revisión</span></td>
+      `;
+      tbody.prepend(tr);
+
+      totalHoras = Math.min(totalHoras + horas, metaHoras);
+      const porcentaje = Math.round((totalHoras / metaHoras) * 100);
+      document.getElementById('horasActuales').textContent = totalHoras;
+      document.getElementById('barraProgreso').style.width = porcentaje + '%';
+      document.getElementById('textoProgreso').textContent = porcentaje + '% completado';
+
+      formActividad.reset();
+      closeModal();
+    });
+
+    filtroEstado.addEventListener('change', (e) => {
+      const valor = e.target.value;
+      const filas = document.querySelectorAll('#tablaActividades tr');
+      filas.forEach(fila => {
+        if (valor === 'todos' || fila.dataset.estado === valor) {
+          fila.style.display = '';
+        } else {
+          fila.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
